@@ -23,8 +23,13 @@ __Commit b7954d8 Gulp Workflow__
 * implementing .gitignore to lock out node_modules
 * starting documentation in README.md
 
-__Commit 00000 Basic index.html__
+__Commit 009f843 Basic index.html__
 
 * Setting up basic index.html importing materialize.css, Google Fonts, JQuery and Knockout.js
+* updating documentation
+
+__Commit 00000 Basic style.css__
+
+* Setting up basic style.css
 * updating documentation
 
