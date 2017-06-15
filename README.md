@@ -12,7 +12,7 @@
 
 ### Version Control
 
-__Commit 00001__
+__Commit b7954d8 Gulp Workflow__
 
 * Setting up basic file structure (dist,src)
 * Implementing gulpfile.js
