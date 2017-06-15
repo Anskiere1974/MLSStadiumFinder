@@ -1,10 +1,16 @@
 /* Style.css */
+html,
 body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 1.5;
 	color: #000;
+	
+	/* styles we need for the map */
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 h1,
@@ -19,4 +25,8 @@ h4 {
 
 p {
 	margin: 0 0 10px 0;
+}
+
+#map {
+	height: 100%;
 }

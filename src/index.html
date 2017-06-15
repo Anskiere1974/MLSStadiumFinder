@@ -17,6 +17,9 @@
 </head>
 
 <body>
+	<!-- Google Map lives in here -->
+	<div id="map"></div>
+
     <!-- Import jQuery -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Import Knockout.js -->
@@ -25,6 +28,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
     <!-- Import app.js -->
     <script src="js/app.js"></script>
+    <!-- Loading Google Map async -->
+   	<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKRKYTqc_igfzoYRi0-fgyKDm21AVU_yU&v=3&callback=init">
+    </script>
 </body>
 
 </html>

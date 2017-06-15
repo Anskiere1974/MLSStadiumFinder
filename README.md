@@ -8,6 +8,7 @@
 [Materialize.css](http://materializecss.com/)
 [JQuery](https://jquery.com/)
 [Knockout.js](http://knockoutjs.com/)
+[Google Map API]()
 
 ### Helpful articles and tutorials
 
@@ -28,8 +29,13 @@ __Commit 009f843 Basic index.html__
 * Setting up basic index.html importing materialize.css, Google Fonts, JQuery and Knockout.js
 * updating documentation
 
-__Commit 00000 Basic style.css__
+__Commit 7368849 Basic style.css__
 
 * Setting up basic style.css
 * updating documentation
 
+__Commit 00000 Basic Map__
+
+* implementing basic Google Map
+* [more about Map Controls](https://developers.google.com/maps/documentation/javascript/controls)
+* updating documentation

@@ -1,0 +1,1 @@
+var appViewModel=function(){var n=this;this.map,this.initMap=function(){var t={center:{lat:37.8,lng:-101.5},zoom:5,mapTypeControl:!1,streetViewControl:!1};n.map=new google.maps.Map(document.getElementById("map"),t)},this.initMap()},init=function(){ko.applyBindings(new appViewModel)};
