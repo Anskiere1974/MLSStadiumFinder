@@ -5,6 +5,9 @@
 ### Resources
 
 [Gulp.js](http://www.gulp.js.com)
+[Materialize.css](http://materializecss.com/)
+[JQuery](https://jquery.com/)
+[Knockout.js](http://knockoutjs.com/)
 
 ### Helpful articles and tutorials
 
@@ -19,4 +22,9 @@ __Commit b7954d8 Gulp Workflow__
 * Testing gulp and gulp watch
 * implementing .gitignore to lock out node_modules
 * starting documentation in README.md
+
+__Commit 00000 Basic index.html__
+
+* Setting up basic index.html importing materialize.css, Google Fonts, JQuery and Knockout.js
+* updating documentation
 
