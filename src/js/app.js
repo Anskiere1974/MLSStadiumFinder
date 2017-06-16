@@ -24,4 +24,9 @@ var init = function() {
 	ko.applyBindings(new appViewModel());
 };
 
-
+// handling the Sidebar
+$(document).ready(function(){
+	$('#sidebar-btn').on('click', function(){
+		$('#sidebar').toggleClass('visible');
+	});
+});

@@ -34,8 +34,14 @@ __Commit 7368849 Basic style.css__
 * Setting up basic style.css
 * updating documentation
 
-__Commit 00000 Basic Map__
+__Commit f509bb3 Basic Map__
 
 * implementing basic Google Map
 * [more about Map Controls](https://developers.google.com/maps/documentation/javascript/controls)
+* updating documentation
+
+__Commit 00000 Basic sidebar__
+
+* implementing basic responsive sidebar
+* setting up basic knockout.js appViewModel
 * updating documentation
