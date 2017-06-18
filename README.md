@@ -40,8 +40,13 @@ __Commit f509bb3 Basic Map__
 * [more about Map Controls](https://developers.google.com/maps/documentation/javascript/controls)
 * updating documentation
 
-__Commit 00000 Basic sidebar__
+__Commit 15afe6d Basic sidebar__
 
 * implementing basic responsive sidebar
 * setting up basic knockout.js appViewModel
+* updating documentation
+
+__Commit 00000 import teamdata.js__
+
+* var teamData is an object literal holding the basic data for all MLS teams.
 * updating documentation
