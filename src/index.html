@@ -24,9 +24,9 @@
         <h2>MLS Teams</h2>
         <!-- Our league filter buttons live in here -->
         <div>
-            <button id="all-btn">All</button>
-            <button id="west-btn">West</button>
-            <button id="east-btn">East</button>
+            <button id="all-btn" data-bind="click: filterAll">All</button>
+            <button id="west-btn" data-bind="click: filterWest">West</button>
+            <button id="east-btn" data-bind="click: filterEast">East</button>
         </div>
         <input data-bind="textInput: query, event : {keyup: liveSearch}" type="text" id="filter-box" class="form-control" placeholder="Type here to filter results..." />
         <ul data-bind="foreach: teamList">

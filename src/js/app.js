@@ -35,6 +35,35 @@ var appViewModel = function() {
         }
     };
 
+    // basic filter to find the teams in a given conference
+    this.filter = function(conference) {
+        for (var i = 0; i < teamData.length; i++) {
+            if (teamData[i].conference === conference)
+                self.teamList.push(new Teams(teamData[i]));
+        }
+    };
+
+    // show all teams in western conference
+    this.filterWest = function() {
+        self.teamList.removeAll(); // clear the teamList
+        self.query(''); // clear the search string
+        self.filter('west'); // apply the basic filter
+    };
+
+    // show all teams in eastern conference
+    this.filterEast = function() {
+        self.teamList.removeAll(); // clear the teamList
+        self.query(''); // clear the search string
+        self.filter('east'); // apply the basic filter
+    };
+
+    // show all MLS teams
+    this.filterAll = function() {
+        self.teamList.removeAll(); // clear the teamList
+        self.query(''); // clear the search string
+        self.createTeamList(); // apply the basic filter
+    };
+
     this.map;
     this.initMap = function() {
         var mapOptions = {

@@ -51,7 +51,12 @@ __Commit bc740ab Import teamdata.js import teamdata.js__
 * var teamData is an object literal holding the basic data for all MLS teams.
 * updating documentation
 
-__Commit 00000 Basic live Search__
+__Commit 476ca4d Basic live Search__
 
 * add createTeamlist()
 * add liveSearch()
+
+__Commit 00000 Filter for conference__
+
++ add filter(), filterWest(), filterEast(), filterAll()
+  now you can filter the teams for western and eastern conference.
