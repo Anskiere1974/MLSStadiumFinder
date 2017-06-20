@@ -17,25 +17,27 @@
 </head>
 
 <body>
-	<!-- Google Map lives in here -->
-	<div id="map"></div>
-	<!-- Sidebar -->
-	<div id="sidebar">
-		<h2>Hallo</h2>
-		<ul>
-			<li><a href="#">One</a></li>
-			<li><a href="#">Two</a></li>
-			<li><a href="#">Three</a></li>
-			<li><a href="#">Four</a></li>
-			<li><a href="#">Five</a></li>
-		</ul>
-		<div id="sidebar-btn">
-			<span></span>
-			<span></span>
-			<span></span>
-		</div>
-	</div>
-
+    <!-- Google Map lives in here -->
+    <div id="map"></div>
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h2>MLS Teams</h2>
+        <!-- Our league filter buttons live in here -->
+        <div>
+            <button id="all-btn">All</button>
+            <button id="west-btn">West</button>
+            <button id="east-btn">East</button>
+        </div>
+        <input data-bind="textInput: query, event : {keyup: liveSearch}" type="text" id="filter-box" class="form-control" placeholder="Type here to filter results..." />
+        <ul data-bind="foreach: teamList">
+            <li data-bind="text: name, visible: visible"></li>
+        </ul>
+        <div id="sidebar-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
     <!-- Import jQuery -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Import Knockout.js -->
@@ -47,8 +49,7 @@
     <!-- Import app.js -->
     <script src="js/app.js"></script>
     <!-- Loading Google Map async -->
-   	<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKRKYTqc_igfzoYRi0-fgyKDm21AVU_yU&v=3&callback=init">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKRKYTqc_igfzoYRi0-fgyKDm21AVU_yU&v=3&callback=init">
     </script>
 </body>
 

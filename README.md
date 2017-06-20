@@ -46,7 +46,12 @@ __Commit 15afe6d Basic sidebar__
 * setting up basic knockout.js appViewModel
 * updating documentation
 
-__Commit 00000 import teamdata.js__
+__Commit bc740ab Import teamdata.js import teamdata.js__
 
 * var teamData is an object literal holding the basic data for all MLS teams.
 * updating documentation
+
+__Commit 00000 Basic live Search__
+
+* add createTeamlist()
+* add liveSearch()

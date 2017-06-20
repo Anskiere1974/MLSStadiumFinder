@@ -40,6 +40,7 @@ p {
 	display: block;
 	background-color: #ddd;
 	transition: left 0.3s linear;
+	padding: 16px;
 }
 
 #sidebar.visible {
