@@ -66,6 +66,11 @@ __Commit 6e22285 add Markers__
 * add createMarker(), removeMarker(), more work on the filter functions
   Now markers will appear on the Map. The markers will update themselves accordingly to the selected conference or live search input.
 
-__Commit 00000 add clicks__
+__Commit adec927 add clicks__
 
 * add listening events to the markers and to the teamList. The markers will start to bounce after being clicked.
+
+__Commit 00000 ad basic infowindow__
+
+* add populateInfoWindow()
+  After clicking a team in the teamList or a marker on the map, an infowindow with more information will pop up.

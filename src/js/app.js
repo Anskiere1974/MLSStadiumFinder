@@ -76,7 +76,6 @@ var appViewModel = function() {
     this.createMarker = function() {
     	// looping through the teamlist
     	for(var i = 0; i < self.teamList().length; i++) {
-    		// console.log(self.teamList()[i].name());
     		var marker = new google.maps.Marker({
             map: self.map,
             position: {lat: self.teamList()[i].lat(), lng: self.teamList()[i].lng()},
@@ -87,6 +86,7 @@ var appViewModel = function() {
     		// add click event to every marker
     		marker.addListener('click', function() {
     			self.letsBounce(this);
+    			self.populateInfoWindow(this, self.infowindow);
     		});
 
     		self.teamList()[i].marker = marker;
@@ -112,6 +112,23 @@ var appViewModel = function() {
     // Making our teams clickable and interactive with the marker
     this.handleMarker = function() {
     	self.letsBounce(this.marker);
+    	self.populateInfoWindow(this.marker, self.infowindow);
+    };
+
+    // This function populates the infowindow when the marker is clicked. We'll only allow
+    // one infowindow which will open at the marker that is clicked, and populate based
+    // on that markers position.
+    this.infowindow;
+    this.populateInfoWindow = function(marker, infowindow) {
+    	if (infowindow.marker != marker) {
+    		infowindow.marker = marker;
+    		infowindow.setContent('<div>' + marker.title + '</div>');
+    		infowindow.open(map, marker);
+    		// Make sure the marker property is cleared if the infowindow is closed.
+          	infowindow.addListener('closeclick',function(){
+            	infowindow.setMarker = null;
+          	});
+    	}
     };
 
     this.map;
@@ -124,6 +141,7 @@ var appViewModel = function() {
         };
 
         self.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        self.infowindow = new google.maps.InfoWindow();
     }
 
    
