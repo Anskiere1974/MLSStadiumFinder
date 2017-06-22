@@ -61,8 +61,11 @@ __Commit 6d54014 Filter for conference__
 + add filter(), filterWest(), filterEast(), filterAll()
   now you can filter the teams for western and eastern conference.
 
-__Commit 00000 add Markers__
+__Commit 6e22285 add Markers__
 
 * add createMarker(), removeMarker(), more work on the filter functions
   Now markers will appear on the Map. The markers will update themselves accordingly to the selected conference or live search input.
 
+__Commit 00000 add clicks__
+
+* add listening events to the markers and to the teamList. The markers will start to bounce after being clicked.

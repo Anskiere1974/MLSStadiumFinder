@@ -72,7 +72,7 @@ var appViewModel = function() {
         self.createMarker();
     };
 
-    this.markers = [];
+    // crreating markers for the map
     this.createMarker = function() {
     	// looping through the teamlist
     	for(var i = 0; i < self.teamList().length; i++) {
@@ -83,15 +83,35 @@ var appViewModel = function() {
             title: self.teamList()[i].name(),
             animation: google.maps.Animation.DROP,
           });
+
+    		// add click event to every marker
+    		marker.addListener('click', function() {
+    			self.letsBounce(this);
+    		});
+
     		self.teamList()[i].marker = marker;
-    		
     	}
     };
 
+    // soemtimes you need to remove a marker
     this.removeMarker = function() {
     	 self.teamList().forEach(function(item) {
             item.marker.setMap(null);
         });
+    };
+
+    // the markers learn to bounce
+    this.letsBounce = function(marker) {
+    	marker.setAnimation(google.maps.Animation.BOUNCE);
+    	// all good things come to an end
+    	setTimeout(function(){
+    		marker.setAnimation(null);
+    	}, 1400);
+    };
+
+    // Making our teams clickable and interactive with the marker
+    this.handleMarker = function() {
+    	self.letsBounce(this.marker);
     };
 
     this.map;

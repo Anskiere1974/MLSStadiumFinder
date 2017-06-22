@@ -30,7 +30,7 @@
         </div>
         <input data-bind="textInput: query, event : {keyup: liveSearch}" type="text" id="filter-box" class="form-control" placeholder="Type here to filter results..." />
         <ul data-bind="foreach: teamList">
-            <li data-bind="text: name, visible: visible"></li>
+            <li data-bind="text: name, visible: visible, click: $parent.handleMarker"></li>
         </ul>
         <div id="sidebar-btn">
             <span></span>
