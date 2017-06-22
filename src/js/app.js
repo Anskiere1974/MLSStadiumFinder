@@ -22,8 +22,10 @@ var appViewModel = function() {
         self.teamList().forEach(function(item) {
             if (item.name().toLowerCase().indexOf(self.query().toLowerCase()) >= 0) {
                 item.visible(true);
+                item.marker.setVisible(true)
             } else {
                 item.visible(false);
+                item.marker.setVisible(false)
             }
         });
     };
@@ -38,13 +40,16 @@ var appViewModel = function() {
     // basic filter to find the teams in a given conference
     this.filter = function(conference) {
         for (var i = 0; i < teamData.length; i++) {
-            if (teamData[i].conference === conference)
+            if (teamData[i].conference === conference) {
                 self.teamList.push(new Teams(teamData[i]));
+            }
         }
+        self.createMarker();
     };
 
     // show all teams in western conference
     this.filterWest = function() {
+    	self.removeMarker(); // remove all markers
         self.teamList.removeAll(); // clear the teamList
         self.query(''); // clear the search string
         self.filter('west'); // apply the basic filter
@@ -52,6 +57,7 @@ var appViewModel = function() {
 
     // show all teams in eastern conference
     this.filterEast = function() {
+    	self.removeMarker(); // remove all markers
         self.teamList.removeAll(); // clear the teamList
         self.query(''); // clear the search string
         self.filter('east'); // apply the basic filter
@@ -59,9 +65,33 @@ var appViewModel = function() {
 
     // show all MLS teams
     this.filterAll = function() {
+    	self.removeMarker(); // remove all markers
         self.teamList.removeAll(); // clear the teamList
         self.query(''); // clear the search string
-        self.createTeamList(); // apply the basic filter
+        self.createTeamList();
+        self.createMarker();
+    };
+
+    this.markers = [];
+    this.createMarker = function() {
+    	// looping through the teamlist
+    	for(var i = 0; i < self.teamList().length; i++) {
+    		// console.log(self.teamList()[i].name());
+    		var marker = new google.maps.Marker({
+            map: self.map,
+            position: {lat: self.teamList()[i].lat(), lng: self.teamList()[i].lng()},
+            title: self.teamList()[i].name(),
+            animation: google.maps.Animation.DROP,
+          });
+    		self.teamList()[i].marker = marker;
+    		
+    	}
+    };
+
+    this.removeMarker = function() {
+    	 self.teamList().forEach(function(item) {
+            item.marker.setMap(null);
+        });
     };
 
     this.map;
@@ -72,11 +102,14 @@ var appViewModel = function() {
             mapTypeControl: false, // deactivates the mapTypeControl Panel
             streetViewControl: false // deactivates the streetViewControl Panel
         };
+
         self.map = new google.maps.Map(document.getElementById('map'), mapOptions);
     }
 
-    this.createTeamList();
+   
     this.initMap();
+    this.createTeamList();
+    this.createMarker();
 };
 
 // Callback function for Google Map API to start the show
@@ -89,4 +122,5 @@ $(document).ready(function() {
     $('#sidebar-btn').on('click', function() {
         $('#sidebar').toggleClass('visible');
     });
+
 });

@@ -56,7 +56,13 @@ __Commit 476ca4d Basic live Search__
 * add createTeamlist()
 * add liveSearch()
 
-__Commit 00000 Filter for conference__
+__Commit 6d54014 Filter for conference__
 
 + add filter(), filterWest(), filterEast(), filterAll()
   now you can filter the teams for western and eastern conference.
+
+__Commit 00000 add Markers__
+
+* add createMarker(), removeMarker(), more work on the filter functions
+  Now markers will appear on the Map. The markers will update themselves accordingly to the selected conference or live search input.
+
