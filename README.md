@@ -70,7 +70,11 @@ __Commit adec927 add clicks__
 
 * add listening events to the markers and to the teamList. The markers will start to bounce after being clicked.
 
-__Commit 00000 ad basic infowindow__
+__Commit d71e19c add basic infowindow__
 
 * add populateInfoWindow()
   After clicking a team in the teamList or a marker on the map, an infowindow with more information will pop up.
+
+__Commit 00000 reverse Geocoding__
+
+* getGeocodeAddress() will take the latlng from teamData and use reverse Geocoding to find out the stadium address and display it on the info window.

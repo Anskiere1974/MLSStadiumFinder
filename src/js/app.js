@@ -8,6 +8,7 @@ var Teams = function(data) {
     this.lng = ko.observable(data.lng);
     this.conference = ko.observable(data.conference);
     this.visible = ko.observable(true);
+    this.address = ko.observable(data.address);
 };
 
 // starting appViewModel
@@ -49,7 +50,7 @@ var appViewModel = function() {
 
     // show all teams in western conference
     this.filterWest = function() {
-    	self.removeMarker(); // remove all markers
+        self.removeMarker(); // remove all markers
         self.teamList.removeAll(); // clear the teamList
         self.query(''); // clear the search string
         self.filter('west'); // apply the basic filter
@@ -57,7 +58,7 @@ var appViewModel = function() {
 
     // show all teams in eastern conference
     this.filterEast = function() {
-    	self.removeMarker(); // remove all markers
+        self.removeMarker(); // remove all markers
         self.teamList.removeAll(); // clear the teamList
         self.query(''); // clear the search string
         self.filter('east'); // apply the basic filter
@@ -65,7 +66,7 @@ var appViewModel = function() {
 
     // show all MLS teams
     this.filterAll = function() {
-    	self.removeMarker(); // remove all markers
+        self.removeMarker(); // remove all markers
         self.teamList.removeAll(); // clear the teamList
         self.query(''); // clear the search string
         self.createTeamList();
@@ -74,45 +75,47 @@ var appViewModel = function() {
 
     // crreating markers for the map
     this.createMarker = function() {
-    	// looping through the teamlist
-    	for(var i = 0; i < self.teamList().length; i++) {
-    		var marker = new google.maps.Marker({
-            map: self.map,
-            position: {lat: self.teamList()[i].lat(), lng: self.teamList()[i].lng()},
-            title: self.teamList()[i].name(),
-            animation: google.maps.Animation.DROP,
-          });
+        // looping through the teamlist
+        for (var i = 0; i < self.teamList().length; i++) {
+            var marker = new google.maps.Marker({
+                map: self.map,
+                position: { lat: self.teamList()[i].lat(), lng: self.teamList()[i].lng() },
+                title: self.teamList()[i].name(),
+                animation: google.maps.Animation.DROP,
+                address: teamData[i].address
+            });
 
-    		// add click event to every marker
-    		marker.addListener('click', function() {
-    			self.letsBounce(this);
-    			self.populateInfoWindow(this, self.infowindow);
-    		});
+            // add click event to every marker
+            marker.addListener('click', function() {
+                self.letsBounce(this);
+                self.getGeocodeAddress(this);
+            });
 
-    		self.teamList()[i].marker = marker;
-    	}
+            self.teamList()[i].marker = marker;
+        }
     };
 
     // soemtimes you need to remove a marker
     this.removeMarker = function() {
-    	 self.teamList().forEach(function(item) {
+        self.teamList().forEach(function(item) {
             item.marker.setMap(null);
         });
     };
 
     // the markers learn to bounce
     this.letsBounce = function(marker) {
-    	marker.setAnimation(google.maps.Animation.BOUNCE);
-    	// all good things come to an end
-    	setTimeout(function(){
-    		marker.setAnimation(null);
-    	}, 1400);
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        // all good things come to an end
+        setTimeout(function() {
+            marker.setAnimation(null);
+        }, 1400);
     };
 
     // Making our teams clickable and interactive with the marker
     this.handleMarker = function() {
-    	self.letsBounce(this.marker);
-    	self.populateInfoWindow(this.marker, self.infowindow);
+        self.letsBounce(this.marker);
+        self.getGeocodeAddress(this.marker);
+        // self.populateInfoWindow(this.marker, self.infowindow);
     };
 
     // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -120,15 +123,34 @@ var appViewModel = function() {
     // on that markers position.
     this.infowindow;
     this.populateInfoWindow = function(marker, infowindow) {
-    	if (infowindow.marker != marker) {
-    		infowindow.marker = marker;
-    		infowindow.setContent('<div>' + marker.title + '</div>');
-    		infowindow.open(map, marker);
-    		// Make sure the marker property is cleared if the infowindow is closed.
-          	infowindow.addListener('closeclick',function(){
-            	infowindow.setMarker = null;
-          	});
-    	}
+        if (infowindow.marker != marker) {
+            infowindow.marker = marker;
+            infowindow.setContent('<div>' + marker.address + '</div>');
+            infowindow.open(map, marker);
+            // Make sure the marker property is cleared if the infowindow is closed.
+            infowindow.addListener('closeclick', function() {
+                infowindow.setMarker = null;
+            });
+        }
+    };
+
+    // use reverse Geocoding to find out the stadiums address
+    this.getGeocodeAddress = function(marker) {
+        // console.log(marker.position.lat());
+        var lat = marker.position.lat();
+        var lng = marker.position.lng();
+
+        $.ajax({
+            url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyCKRKYTqc_igfzoYRi0-fgyKDm21AVU_yU',
+            success: function(data) {
+                var output = data.results[0].formatted_address;
+                marker.address = output;
+                self.populateInfoWindow(marker, self.infowindow);
+            },
+            error: function() {
+                alert("Unable to reach GoogleMap Geocoding - please try again later");
+            }
+        });
     };
 
     this.map;
@@ -144,7 +166,7 @@ var appViewModel = function() {
         self.infowindow = new google.maps.InfoWindow();
     }
 
-   
+
     this.initMap();
     this.createTeamList();
     this.createMarker();

@@ -5,7 +5,8 @@ var teamData = [
     city: "Atlanta, Georgia",
     lat: 33.772445,
     lng: -84.392805,
-    conference: "east"
+    conference: "east",
+    address: null,
   },
   {
     name: "Chicago Fire",
