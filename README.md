@@ -1,6 +1,7 @@
 # Major League Soccer Stadium Finder
 
-
+_a note about OpenWeatherMap_
+For this project I used a free version of openweatherMap API. There are some restrictions to this free service. Free and Startup accounts have limitation of capacity and data availability. If you do not get respond from server do not try to repeat your request immediately, but only after 10 min.
 
 ### Resources
 
@@ -9,10 +10,13 @@
 [JQuery](https://jquery.com/)
 [Knockout.js](http://knockoutjs.com/)
 [Google Map API]()
+[Openweathermap.org](http://openweathermap.org/)
 
 ### Helpful articles and tutorials
 
 [CSS-Tricks Gulp for Beginners](https://css-tricks.com/gulp-for-beginners/)
+
+[Documentation of OpenWeatherMapAPI](http://openweathermap.org/api)
 
 ### Version Control
 
@@ -75,6 +79,11 @@ __Commit d71e19c add basic infowindow__
 * add populateInfoWindow()
   After clicking a team in the teamList or a marker on the map, an infowindow with more information will pop up.
 
-__Commit 00000 reverse Geocoding__
+__Commit 10ef456 reverse Geocoding__
 
 * getGeocodeAddress() will take the latlng from teamData and use reverse Geocoding to find out the stadium address and display it on the info window.
+
+__Commit 00000 weather and staticMap__
+
+* added a small static satellite image of the stadium, when info window opens. This way you get a bird's eye view of the selected stadium.
+* added openweathermap.org api to display current weather data.

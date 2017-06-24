@@ -4,6 +4,7 @@
 var Teams = function(data) {
     this.name = ko.observable(data.name);
     this.stadium = ko.observable(data.stadium);
+    this.capacity = ko.observable(data.capacity);
     this.lat = ko.observable(data.lat);
     this.lng = ko.observable(data.lng);
     this.conference = ko.observable(data.conference);
@@ -81,6 +82,8 @@ var appViewModel = function() {
                 map: self.map,
                 position: { lat: self.teamList()[i].lat(), lng: self.teamList()[i].lng() },
                 title: self.teamList()[i].name(),
+                stadium: self.teamList()[i].stadium(),
+                capacity: self.teamList()[i].capacity(),
                 animation: google.maps.Animation.DROP,
                 address: teamData[i].address
             });
@@ -125,7 +128,15 @@ var appViewModel = function() {
     this.populateInfoWindow = function(marker, infowindow) {
         if (infowindow.marker != marker) {
             infowindow.marker = marker;
-            infowindow.setContent('<div>' + marker.address + '</div>');
+            infowindow.setContent(
+            	'<div>' + marker.title + '</div>' +
+            	'<div>' + marker.stadium + '</div>' +
+            	'<div>' + marker.address + '</div>' +
+            	'<div>capacity: ' + marker.capacity + '</div>' +
+            	'<div>weather: ' + marker.weather + '</div>' +
+            	'<div>temperature: ' + marker.temp + 'Celsius</div>' +
+            	'<img src="https://maps.googleapis.com/maps/api/staticmap?center=' + marker.position.lat() + ',' + marker.position.lng() + '&zoom=16&size=200x200&maptype=hybrid&key=AIzaSyCKRKYTqc_igfzoYRi0-fgyKDm21AVU_yU" alt="" />'
+            );
             infowindow.open(map, marker);
             // Make sure the marker property is cleared if the infowindow is closed.
             infowindow.addListener('closeclick', function() {
@@ -136,7 +147,6 @@ var appViewModel = function() {
 
     // use reverse Geocoding to find out the stadiums address
     this.getGeocodeAddress = function(marker) {
-        // console.log(marker.position.lat());
         var lat = marker.position.lat();
         var lng = marker.position.lng();
 
@@ -145,11 +155,30 @@ var appViewModel = function() {
             success: function(data) {
                 var output = data.results[0].formatted_address;
                 marker.address = output;
-                self.populateInfoWindow(marker, self.infowindow);
+				self.getWeather(marker);
             },
             error: function() {
                 alert("Unable to reach GoogleMap Geocoding - please try again later");
             }
+        });
+    };
+
+    // Ask openweathermap.api for the current weather at the selected stadium
+    this.getWeather = function(marker) {
+    	var lat = marker.position.lat();
+        var lng = marker.position.lng();
+
+        $.ajax({
+        	url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lng + '&APPID=906ae1bd2537be3aefb269cb9a2f068a&units=metric',
+        	success: function(data) {
+        		console.log(data);
+        		marker.temp = data.main.temp;
+        		marker.weather = data.weather[0].description;
+        		self.populateInfoWindow(marker, self.infowindow);
+        	},
+        	error: function() {
+        		alert("Unable to reach Openweathermap.org - please try again later");
+        	} 
         });
     };
 
@@ -165,7 +194,6 @@ var appViewModel = function() {
         self.map = new google.maps.Map(document.getElementById('map'), mapOptions);
         self.infowindow = new google.maps.InfoWindow();
     }
-
 
     this.initMap();
     this.createTeamList();
