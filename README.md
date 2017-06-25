@@ -1,5 +1,15 @@
 # Major League Soccer Stadium Finder
 
+This is my project for the Udacity Nanodegree Neighbourhood Map.
+
+I use several features of the Google MAP API and open weather data from OpenWeathermap.org for this app. The user will see a Map with all 22 MLS teams. You can filter teams for western and eastern conference. You can perform live search on the list of teams. If you click on a team a popupwindow will appear with useful information on the stadium. The app will use OpenWeatherMap API to show the current temperature and overall weather around the stadium. 
+
+### Installation
+
+* Download the repo
+* the optimized content is in the dist folder. Just launch index.html
+* the source code is in the src folder
+
 _a note about OpenWeatherMap_
 For this project I used a free version of openweatherMap API. There are some restrictions to this free service. Free and Startup accounts have limitation of capacity and data availability. If you do not get respond from server do not try to repeat your request immediately, but only after 10 min.
 
@@ -92,8 +102,16 @@ __Commit 7568f94 team logo__
 
 * added all MLS team logos. The google map API will render the correct team logo for all teams.
 
-__Commit 00000 new style__
+__Commit dce55cb styling sidebar__
 
 * added a new google map style
 * changed the hamburger icon for responsive sidebar
 * more styling on the sidebar
+
+__Commit 00000 final touches__
+
+* styling infowindow
+* error fallbacks on APIs
+* prettify HTML, CSS, JS
+* run JSHINT on code
+* more work on documentation

@@ -18,11 +18,11 @@
 
 <body>
     <div id="header">
-    	<ul class="nav-list">
-    		<li><i class="fa fa-bars hamburger" id="sidebar-btn" aria-hidden="true"></i></li>
-    		<li><span>MLS Stadium Finder</span></li>
-    		<li>powered by Google Maps</li>
-    	</ul>
+        <ul class="nav-list">
+            <li><i class="fa fa-bars hamburger" id="sidebar-btn" aria-hidden="true"></i></li>
+            <li><span>MLS Stadium Finder</span></li>
+            <li>powered by Google Maps</li>
+        </ul>
     </div>
     <!-- Google Map lives in here -->
     <div id="map"></div>
@@ -39,10 +39,6 @@
         <ul data-bind="foreach: teamList" class="team-list">
             <li data-bind="text: name, visible: visible, click: $parent.handleMarker"></li>
         </ul>
-        <!-- 
-        <div id="sidebar-btn">
-            <i class="material-icons">subject</i>
-        </div> -->
     </div>
     <!-- Import jQuery -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -55,7 +51,7 @@
     <!-- Import app.js -->
     <script src="js/app.js"></script>
     <!-- Loading Google Map async -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKRKYTqc_igfzoYRi0-fgyKDm21AVU_yU&v=3&callback=init">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKRKYTqc_igfzoYRi0-fgyKDm21AVU_yU&v=3&callback=init" onerror="mapError()">
     </script>
 </body>
 
