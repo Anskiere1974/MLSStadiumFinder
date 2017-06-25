@@ -108,7 +108,7 @@ __Commit dce55cb styling sidebar__
 * changed the hamburger icon for responsive sidebar
 * more styling on the sidebar
 
-__Commit 00000 final touches__
+__Commit 655091b final touches__
 
 * styling infowindow
 * error fallbacks on APIs
