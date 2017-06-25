@@ -113,5 +113,5 @@ __Commit 655091b final touches__
 * styling infowindow
 * error fallbacks on APIs
 * prettify HTML, CSS, JS
-* run JSHINT on code
+* run JSHINT on code.
 * more work on documentation
