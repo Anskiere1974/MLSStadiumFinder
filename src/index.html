@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Import Font Awesome Icons-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Import Google Font Roboto -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
     <!-- Import materialize.css-->
@@ -17,6 +17,13 @@
 </head>
 
 <body>
+    <div id="header">
+    	<ul class="nav-list">
+    		<li><i class="fa fa-bars hamburger" id="sidebar-btn" aria-hidden="true"></i></li>
+    		<li><span>MLS Stadium Finder</span></li>
+    		<li>powered by Google Maps</li>
+    	</ul>
+    </div>
     <!-- Google Map lives in here -->
     <div id="map"></div>
     <!-- Sidebar -->
@@ -29,14 +36,13 @@
             <button id="east-btn" data-bind="click: filterEast">East</button>
         </div>
         <input data-bind="textInput: query, event : {keyup: liveSearch}" type="text" id="filter-box" class="form-control" placeholder="Type here to filter results..." />
-        <ul data-bind="foreach: teamList">
+        <ul data-bind="foreach: teamList" class="team-list">
             <li data-bind="text: name, visible: visible, click: $parent.handleMarker"></li>
         </ul>
+        <!-- 
         <div id="sidebar-btn">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+            <i class="material-icons">subject</i>
+        </div> -->
     </div>
     <!-- Import jQuery -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

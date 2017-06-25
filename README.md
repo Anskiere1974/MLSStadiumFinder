@@ -88,6 +88,12 @@ __Commit 9be2e7f weather and static Map__
 * added a small static satellite image of the stadium, when info window opens. This way you get a bird's eye view of the selected stadium.
 * added openweathermap.org api to display current weather data.
 
-__Commit 00000 team logo__
+__Commit 7568f94 team logo__
 
 * added all MLS team logos. The google map API will render the correct team logo for all teams.
+
+__Commit 00000 new style__
+
+* added a new google map style
+* changed the hamburger icon for responsive sidebar
+* more styling on the sidebar
