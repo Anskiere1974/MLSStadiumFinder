@@ -83,7 +83,11 @@ __Commit 10ef456 reverse Geocoding__
 
 * getGeocodeAddress() will take the latlng from teamData and use reverse Geocoding to find out the stadium address and display it on the info window.
 
-__Commit 00000 weather and staticMap__
+__Commit 9be2e7f weather and static Map__
 
 * added a small static satellite image of the stadium, when info window opens. This way you get a bird's eye view of the selected stadium.
 * added openweathermap.org api to display current weather data.
+
+__Commit 00000 team logo__
+
+* added all MLS team logos. The google map API will render the correct team logo for all teams.

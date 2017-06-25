@@ -78,8 +78,22 @@ var appViewModel = function() {
     this.createMarker = function() {
         // looping through the teamlist
         for (var i = 0; i < self.teamList().length; i++) {
+
+            // Finding the right logo for the right team
+            var teamName = self.teamList()[i].name(); // First we need the current teamName
+            teamName = teamName.toLowerCase(); // all lower Case is needed
+            var teamName = teamName.replace(/\./g, '') // erase all . from the teamName like in D.C. United
+            teamName = teamName.replace(/ /g, ''); // erase all whitespaces
+            var image = 'images/' + teamName + '.png'; // now we build the url path
+
             var marker = new google.maps.Marker({
                 map: self.map,
+                icon: {
+                    url: image,
+                    size: new google.maps.Size(32, 32),
+                    // The anchor for this image is the base of the bottom middle at (16, 32).
+                    anchor: new google.maps.Point(16, 32)
+                },
                 position: { lat: self.teamList()[i].lat(), lng: self.teamList()[i].lng() },
                 title: self.teamList()[i].name(),
                 stadium: self.teamList()[i].stadium(),
@@ -129,13 +143,13 @@ var appViewModel = function() {
         if (infowindow.marker != marker) {
             infowindow.marker = marker;
             infowindow.setContent(
-            	'<div>' + marker.title + '</div>' +
-            	'<div>' + marker.stadium + '</div>' +
-            	'<div>' + marker.address + '</div>' +
-            	'<div>capacity: ' + marker.capacity + '</div>' +
-            	'<div>weather: ' + marker.weather + '</div>' +
-            	'<div>temperature: ' + marker.temp + 'Celsius</div>' +
-            	'<img src="https://maps.googleapis.com/maps/api/staticmap?center=' + marker.position.lat() + ',' + marker.position.lng() + '&zoom=16&size=200x200&maptype=hybrid&key=AIzaSyCKRKYTqc_igfzoYRi0-fgyKDm21AVU_yU" alt="" />'
+                '<div>' + marker.title + '</div>' +
+                '<div>' + marker.stadium + '</div>' +
+                '<div>' + marker.address + '</div>' +
+                '<div>capacity: ' + marker.capacity + '</div>' +
+                '<div>weather: ' + marker.weather + '</div>' +
+                '<div>temperature: ' + marker.temp + 'Celsius</div>' +
+                '<img src="https://maps.googleapis.com/maps/api/staticmap?center=' + marker.position.lat() + ',' + marker.position.lng() + '&zoom=16&size=200x200&maptype=hybrid&key=AIzaSyCKRKYTqc_igfzoYRi0-fgyKDm21AVU_yU" alt="" />'
             );
             infowindow.open(map, marker);
             // Make sure the marker property is cleared if the infowindow is closed.
@@ -155,7 +169,7 @@ var appViewModel = function() {
             success: function(data) {
                 var output = data.results[0].formatted_address;
                 marker.address = output;
-				self.getWeather(marker);
+                self.getWeather(marker);
             },
             error: function() {
                 alert("Unable to reach GoogleMap Geocoding - please try again later");
@@ -165,20 +179,20 @@ var appViewModel = function() {
 
     // Ask openweathermap.api for the current weather at the selected stadium
     this.getWeather = function(marker) {
-    	var lat = marker.position.lat();
+        var lat = marker.position.lat();
         var lng = marker.position.lng();
 
         $.ajax({
-        	url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lng + '&APPID=906ae1bd2537be3aefb269cb9a2f068a&units=metric',
-        	success: function(data) {
-        		console.log(data);
-        		marker.temp = data.main.temp;
-        		marker.weather = data.weather[0].description;
-        		self.populateInfoWindow(marker, self.infowindow);
-        	},
-        	error: function() {
-        		alert("Unable to reach Openweathermap.org - please try again later");
-        	} 
+            url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lng + '&APPID=906ae1bd2537be3aefb269cb9a2f068a&units=metric',
+            success: function(data) {
+                console.log(data);
+                marker.temp = data.main.temp;
+                marker.weather = data.weather[0].description;
+                self.populateInfoWindow(marker, self.infowindow);
+            },
+            error: function() {
+                alert("Unable to reach Openweathermap.org - please try again later");
+            }
         });
     };
 
