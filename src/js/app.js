@@ -182,7 +182,7 @@ var appViewModel = function() {
         var lng = marker.position.lng();
 
         $.ajax({
-            url: 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lng + '&APPID=906ae1bd2537be3aefb269cb9a2f068a&units=metric',
+            url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lng + '&APPID=906ae1bd2537be3aefb269cb9a2f068a&units=metric',
             success: function(data) {
                 console.log(data);
                 marker.temp = data.main.temp;
