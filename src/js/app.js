@@ -202,6 +202,7 @@ var appViewModel = function() {
             mapTypeControl: false, // deactivates the mapTypeControl Panel
             streetViewControl: false, // deactivates the streetViewControl Panel
             zoomControl: false,
+            fullscreenControl: false,
             styles: [
                 { elementType: 'geometry', stylers: [{ color: '#ebe3cd' }] },
                 { elementType: 'labels.text.fill', stylers: [{ color: '#523735' }] },
