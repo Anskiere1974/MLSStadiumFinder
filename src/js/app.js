@@ -103,13 +103,15 @@ var appViewModel = function() {
             });
 
             // add click event to every marker
-            marker.addListener('click', function() {
-                self.letsBounce(this);
-                self.getGeocodeAddress(this);
-            });
+            marker.addListener('click', self.markerClick);
 
             self.teamList()[i].marker = marker;
         }
+    };
+
+    this.markerClick = function() {
+    	self.letsBounce(this);
+        self.getGeocodeAddress(this);
     };
 
     // soemtimes you need to remove a marker
@@ -184,7 +186,6 @@ var appViewModel = function() {
         $.ajax({
             url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lng + '&APPID=906ae1bd2537be3aefb269cb9a2f068a&units=metric',
             success: function(data) {
-                console.log(data);
                 marker.temp = data.main.temp;
                 marker.weather = data.weather[0].description;
                 self.populateInfoWindow(marker, self.infowindow);
