@@ -145,7 +145,7 @@ __Commit 4ceebc4 more work__
 
 * solved Suggestion: Code Quality **Udacity Style Guide: **Do not close self-closing elements, ie. write `<br>`, not `<br />`.
 
-* solved Suggestion: App hasn't used HTML5 semantic tag to define page landmarks.
+  ​
 
   ​
 
