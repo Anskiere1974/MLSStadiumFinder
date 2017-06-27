@@ -127,7 +127,7 @@ __Commit 655091b final touches__
 * run JSHINT on code.
 * more work on documentation
 
-__Commit 0000 review suggestions__
+__Commit 4ceebc4 more work__
 
 * solved Required: wrote a section about Gulp and Gulp installation in the Readme
 
