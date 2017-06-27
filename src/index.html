@@ -12,37 +12,43 @@
     <!-- Linking my own styles -->
     <link rel="stylesheet" href="css/style.css">
     <!-- Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MLS Stadium Finder</title>
 </head>
 
 <body>
     <!-- Google Map lives in here -->
-    <div id="map"></div>
+    <main>
+        <div id="map"></div>
+    </main>
     <!-- Sidebar -->
-    <div id="sidebar" class="visible">
-        <h2>MLS Teams</h2>
-        <!-- Our league filter buttons live in here -->
-        <div>
-            <button id="all-btn" data-bind="click: filterAll">All</button>
-            <button id="west-btn" data-bind="click: filterWest">West</button>
-            <button id="east-btn" data-bind="click: filterEast">East</button>
+    <nav>
+        <div id="sidebar" class="visible">
+            <h2>MLS Teams</h2>
+            <!-- Our league filter buttons live in here -->
+            <div>
+                <button id="all-btn" data-bind="click: filterAll">All</button>
+                <button id="west-btn" data-bind="click: filterWest">West</button>
+                <button id="east-btn" data-bind="click: filterEast">East</button>
+            </div>
+            <input data-bind="textInput: query, event : {keyup: liveSearch}" type="text" id="filter-box" class="form-control" placeholder="Type here to filter results..." />
+            <ul data-bind="foreach: teamList" class="team-list">
+                <li data-bind="text: name, visible: visible, click: $parent.handleMarker"></li>
+            </ul>
+            <p class="info">powered by Google Maps and OpenWeatherMap</p>
         </div>
-        <input data-bind="textInput: query, event : {keyup: liveSearch}" type="text" id="filter-box" class="form-control" placeholder="Type here to filter results..." />
-        <ul data-bind="foreach: teamList" class="team-list">
-            <li data-bind="text: name, visible: visible, click: $parent.handleMarker"></li>
-        </ul>
-        <p class="info">powered by Google Maps and OpenWeatherMap</p>
-    </div>
-    <div id="sidebar-btn"><i class="fa fa-bars hamburger" aria-hidden="true"></i></div>
+        <div id="sidebar-btn"><i class="fa fa-bars hamburger" aria-hidden="true"></i></div>
+    </nav>
     <!-- Import jQuery -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Import Knockout.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js"></script>
     <!-- Import materialize.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-    <!-- Import teamdataa.js -->
+    <!-- Import teamdata.js -->
     <script src="js/teamdata.js"></script>
+    <!-- Import mapstyle.js -->
+    <script src="js/mapstyle.js"></script>
     <!-- Import app.js -->
     <script src="js/app.js"></script>
     <!-- Loading Google Map async -->

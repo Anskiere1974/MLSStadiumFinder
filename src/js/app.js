@@ -2,18 +2,18 @@
 
 // Team is a constructor function for building new - knockout.js ready - teams
 var Teams = function(data) {
-    this.name = ko.observable(data.name);
-    this.stadium = ko.observable(data.stadium);
-    this.capacity = ko.observable(data.capacity);
-    this.lat = ko.observable(data.lat);
-    this.lng = ko.observable(data.lng);
-    this.conference = ko.observable(data.conference);
-    this.visible = ko.observable(true);
-    this.address = ko.observable(data.address);
+    this.name = data.name;
+    this.stadium = data.stadium;
+    this.capacity = data.capacity;
+    this.lat = data.lat;
+    this.lng = data.lng;
+    this.conference = data.conference;
+    this.visible = true;
+    this.address = data.address;
 };
 
-// starting appViewModel
-var appViewModel = function() {
+// starting AppViewModel
+var AppViewModel = function() {
     // sometimes a little hack is all you need
     var self = this;
     this.query = ko.observable('');
@@ -22,11 +22,11 @@ var appViewModel = function() {
     // will do all the live search stuff in the search field
     this.liveSearch = function(value) {
         self.teamList().forEach(function(item) {
-            if (item.name().toLowerCase().indexOf(self.query().toLowerCase()) >= 0) {
-                item.visible(true);
+            if (item.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0) {
+                item.visible = true;
                 item.marker.setVisible(true);
             } else {
-                item.visible(false);
+                item.visible = false;
                 item.marker.setVisible(false);
             }
         });
@@ -80,7 +80,7 @@ var appViewModel = function() {
         for (var i = 0; i < self.teamList().length; i++) {
 
             // Finding the right logo for the right team
-            var teamName = self.teamList()[i].name(); // First we need the current teamName
+            var teamName = self.teamList()[i].name; // First we need the current teamName
             teamName = teamName.toLowerCase(); // all lower Case is needed
             teamName = teamName.replace(/\./g, ''); // erase all . from the teamName like in D.C. United
             teamName = teamName.replace(/ /g, ''); // erase all whitespaces
@@ -94,10 +94,10 @@ var appViewModel = function() {
                     // The anchor for this image is the base of the bottom middle at (16, 32).
                     anchor: new google.maps.Point(16, 32)
                 },
-                position: { lat: self.teamList()[i].lat(), lng: self.teamList()[i].lng() },
-                title: self.teamList()[i].name(),
-                stadium: self.teamList()[i].stadium(),
-                capacity: self.teamList()[i].capacity(),
+                position: { lat: self.teamList()[i].lat, lng: self.teamList()[i].lng },
+                title: self.teamList()[i].name,
+                stadium: self.teamList()[i].stadium,
+                capacity: self.teamList()[i].capacity,
                 animation: google.maps.Animation.DROP,
                 address: teamData[i].address
             });
@@ -110,7 +110,7 @@ var appViewModel = function() {
     };
 
     this.markerClick = function() {
-    	self.letsBounce(this);
+        self.letsBounce(this);
         self.getGeocodeAddress(this);
     };
 
@@ -134,7 +134,7 @@ var appViewModel = function() {
     this.handleMarker = function() {
         self.letsBounce(this.marker);
         self.getGeocodeAddress(this.marker);
-        // self.populateInfoWindow(this.marker, self.infowindow);
+        self.map.setCenter(this.marker.getPosition());
     };
 
     // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -180,14 +180,23 @@ var appViewModel = function() {
 
     // Ask openweathermap.api for the current weather at the selected stadium
     this.getWeather = function(marker) {
-        var lat = marker.position.lat();
-        var lng = marker.position.lng();
+        var lat = marker.position.lat(),
+            lng = marker.position.lng();
 
         $.ajax({
             url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lng + '&APPID=906ae1bd2537be3aefb269cb9a2f068a&units=metric',
             success: function(data) {
-                marker.temp = data.main.temp;
-                marker.weather = data.weather[0].description;
+                if (data.main.temp !== null || data.main.temp !== undefined || data.main.temp !== '') {
+                    marker.temp = data.main.temp;
+                } else {
+                    marker.temp = "currently unavailable";
+                }
+
+                if (data.weather[0].description !== null || data.weather[0].description !== undefined || data.weather[0].description !== '') {
+                    marker.weather = data.weather[0].description;
+                } else {
+                    marker.weather = "currently unavailable";
+                }
                 self.populateInfoWindow(marker, self.infowindow);
             },
             error: function() {
@@ -204,95 +213,7 @@ var appViewModel = function() {
             streetViewControl: false, // deactivates the streetViewControl Panel
             zoomControl: false,
             fullscreenControl: false,
-            styles: [
-                { elementType: 'geometry', stylers: [{ color: '#ebe3cd' }] },
-                { elementType: 'labels.text.fill', stylers: [{ color: '#523735' }] },
-                { elementType: 'labels.text.stroke', stylers: [{ color: '#f5f1e6' }] }, {
-                    featureType: 'administrative',
-                    elementType: 'geometry.stroke',
-                    stylers: [{ color: '#c9b2a6' }]
-                }, {
-                    featureType: 'administrative.land_parcel',
-                    elementType: 'geometry.stroke',
-                    stylers: [{ color: '#dcd2be' }]
-                }, {
-                    featureType: 'administrative.land_parcel',
-                    elementType: 'labels.text.fill',
-                    stylers: [{ color: '#ae9e90' }]
-                }, {
-                    featureType: 'landscape.natural',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#dfd2ae' }]
-                }, {
-                    featureType: 'poi',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#dfd2ae' }]
-                }, {
-                    featureType: 'poi',
-                    elementType: 'labels.text.fill',
-                    stylers: [{ color: '#93817c' }]
-                }, {
-                    featureType: 'poi.park',
-                    elementType: 'geometry.fill',
-                    stylers: [{ color: '#a5b076' }]
-                }, {
-                    featureType: 'poi.park',
-                    elementType: 'labels.text.fill',
-                    stylers: [{ color: '#447530' }]
-                }, {
-                    featureType: 'road',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#f5f1e6' }]
-                }, {
-                    featureType: 'road.arterial',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#fdfcf8' }]
-                }, {
-                    featureType: 'road.highway',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#f8c967' }]
-                }, {
-                    featureType: 'road.highway',
-                    elementType: 'geometry.stroke',
-                    stylers: [{ color: '#e9bc62' }]
-                }, {
-                    featureType: 'road.highway.controlled_access',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#e98d58' }]
-                }, {
-                    featureType: 'road.highway.controlled_access',
-                    elementType: 'geometry.stroke',
-                    stylers: [{ color: '#db8555' }]
-                }, {
-                    featureType: 'road.local',
-                    elementType: 'labels.text.fill',
-                    stylers: [{ color: '#806b63' }]
-                }, {
-                    featureType: 'transit.line',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#dfd2ae' }]
-                }, {
-                    featureType: 'transit.line',
-                    elementType: 'labels.text.fill',
-                    stylers: [{ color: '#8f7d77' }]
-                }, {
-                    featureType: 'transit.line',
-                    elementType: 'labels.text.stroke',
-                    stylers: [{ color: '#ebe3cd' }]
-                }, {
-                    featureType: 'transit.station',
-                    elementType: 'geometry',
-                    stylers: [{ color: '#dfd2ae' }]
-                }, {
-                    featureType: 'water',
-                    elementType: 'geometry.fill',
-                    stylers: [{ color: '#b9d3c2' }]
-                }, {
-                    featureType: 'water',
-                    elementType: 'labels.text.fill',
-                    stylers: [{ color: '#92998d' }]
-                }
-            ]
+            styles: mapStyle // loading Mapstyle per js - other option would be to import via ajax call an json file
         };
 
         self.map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -306,7 +227,7 @@ var appViewModel = function() {
 
 // Callback function for Google Map API to start the show
 var init = function() {
-    ko.applyBindings(new appViewModel());
+    ko.applyBindings(new AppViewModel());
 };
 
 function mapError() {

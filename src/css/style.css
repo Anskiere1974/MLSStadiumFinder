@@ -48,7 +48,7 @@ p {
 }
 
 .hamburger {
-    font-size: 40px;	
+    font-size: 40px;
 }
 
 #map {
@@ -74,15 +74,16 @@ p {
 }
 
 #sidebar-btn {
-	position: absolute;
-	top: 40px;
-	right: 20px;
+    position: absolute;
+    top: 40px;
+    right: 20px;
 }
 
 .info {
-	font-size: 10px;
-	font-style: italic;;
-	color: #fff;
+    font-size: 10px;
+    font-style: italic;
+    ;
+    color: #fff;
 }
 
 .team-list li {
@@ -103,5 +104,5 @@ p {
 }
 
 .form-control {
-	color: #fff;
+    color: #fff;
 }

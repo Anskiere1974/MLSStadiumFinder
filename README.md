@@ -6,9 +6,18 @@ I use several features of the Google MAP API and open weather data from OpenWeat
 
 ### Installation
 
-* Download the repo
-* the optimized content is in the dist folder. Just launch index.html
-* the source code is in the src folder
+To run the project locally:
+
+* Download or clone this [this repository](https://github.com/Anskiere1974/MLSStadiumFinder).
+* Install [node.js](https://nodejs.org/en/) on your computer, in case you haven't.
+* Install [Gulp](http://gulpjs.com/). For more information use [this Guide](https://css-tricks.com/gulp-for-beginners/)
+* Install the following Gulp Plugins for this project:
+  * [Gulp Uglify](https://www.npmjs.com/package/gulp-uglify)
+  * [Gulp Clean CSS](https://www.npmjs.com/package/gulp-clean-css)
+  * [Gulp htmlmin](https://www.npmjs.com/package/gulp-htmlmin)
+  * [Gulp imagemin](https://www.npmjs.com/package/gulp-imagemin)
+* The development code can be found in the __src__ folder. When you make changes to this code, you have to run the __gulp__ command. The code will be processed and written to the __dist__ folder.
+* Finally open __dist/index.html__ in your web browser.
 
 _a note about OpenWeatherMap_
 For this project I used a free version of openweatherMap API. There are some restrictions to this free service. Free and Startup accounts have limitation of capacity and data availability. If you do not get respond from server do not try to repeat your request immediately, but only after 10 min.
@@ -27,6 +36,8 @@ For this project I used a free version of openweatherMap API. There are some res
 [CSS-Tricks Gulp for Beginners](https://css-tricks.com/gulp-for-beginners/)
 
 [Documentation of OpenWeatherMapAPI](http://openweathermap.org/api)
+
+[19+ JS Shorthand Techniques](https://www.sitepoint.com/shorthand-javascript-techniques/)
 
 ### Version Control
 
@@ -115,3 +126,27 @@ __Commit 655091b final touches__
 * prettify HTML, CSS, JS
 * run JSHINT on code.
 * more work on documentation
+
+__Commit 0000 review suggestions__
+
+* solved Required: wrote a section about Gulp and Gulp installation in the Readme
+
+* solved Suggestion: These properties don't need to be *observable* since there's no need for the `ViewModel` to watch for their value changes and update the DOM.
+
+* solved Suggestion: Code Quality Improper Class naming style.
+
+* solved Tip: One UX feature we can consider is to center marker when its active on `click` to provide better UX.
+
+* solved Suggestion Sanity Check: To be safe, please provide conditional statements to handle the case when the each property of the response data is falsy (`undefined`, `null`, empty, etc.). A simple warning message, such as *data is not available*, can be logged to the UI.
+
+* solved Tip: Shorthand Coding Techniques - line 183, 184
+
+* solved Suggestion: It's recommended that we separate JSON data into a file. A quick method is to create a separate JS file and request it before this JS file so that it can access the JSON data.
+
+* solved Suggestion: Code Quality **Udacity Style Guide: **Do not close self-closing elements, ie. write `<br>`, not `<br />`.
+
+* solved Suggestion: App hasn't used HTML5 semantic tag to define page landmarks.
+
+  ​
+
+  ​       
